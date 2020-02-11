@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-
+import Login from './pages/login/login';
+import Admin from './pages/admin/admin';
+import { Route, Switch } from 'react-router-dom';
 export default class App extends Component {
   render() {
-    return <div>APP</div>;
+    return (
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/admin" componnent={Admin} />
+      </Switch>
+    );
   }
 }
