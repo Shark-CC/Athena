@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 import logo from './imgs/logo.png';
 import './css/login.less';
 
@@ -11,10 +11,21 @@ class Login extends Component {
       callback('密码请小于等于12位');
     } else if (value.length < 4) {
       callback('密码请大于等于4位');
-    } else if (/^\w+$/.test(value)) {
+    } else if (!(/^\w+$/).test(value)) {
       callback('请输入数字字母下划线');
+    } else {
+      callback();
     }
+
   };
+  handleSubmit = (event)=>{
+            event.preventDefault();
+            this.props.form.validateFields((err,values)=>{
+                if(!err){
+                    console.log('发送了网络请求',values)
+                }
+            })
+        }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -55,11 +66,7 @@ class Login extends Component {
               )}
             </Form.Item>
             <Form.Item>
-              {/* {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(<Checkbox>Remember me</Checkbox>)} */}
-              <a className="login-form-forgot" href=""></a>
+            
               <Button type="primary" htmlType="submit" className="login-form-button">
                 登录
               </Button>
